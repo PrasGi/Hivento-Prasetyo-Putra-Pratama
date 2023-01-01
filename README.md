@@ -57,6 +57,16 @@ Thank you for considering contributing to the Laravel framework! The contributio
 
 In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
+## How to instalation
+
+You can download database first, i am recomended Mysql
+
+- create database with name "hivento"
+- write in terminal "php artisan migrate:fresh --seed"
+- and last write again "php artisan serve"
+
+And finish you can use now
+
 ## Security Vulnerabilities
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
