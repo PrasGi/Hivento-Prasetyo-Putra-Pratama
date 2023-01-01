@@ -21,10 +21,22 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('V1')->group(function (){
 
     Route::post('/user/register', [\App\Http\Controllers\RegisterController::class, 'store'])->middleware('guest');
-    Route::get('/user/login', [\App\Http\Controllers\LoginController::class, 'authenticate']);
-    Route::get('/user/logout', [\App\Http\Controllers\LoginController::class, 'logout']);
+    Route::get('/user/login', [\App\Http\Controllers\LoginController::class, 'authenticate'])->middleware('guest');
 
-    Route::resource('/role', \App\Http\Controllers\RoleController::class);
-    Route::resource('/user', \App\Http\Controllers\UserController::class)->middleware('auth');
+    Route::middleware('auth:sanctum')->group(function (){
+        Route::get('/user/logout', [\App\Http\Controllers\LoginController::class, 'logout']);
+        Route::resource('/user', \App\Http\Controllers\UserController::class);
+        Route::resource('/event', \App\Http\Controllers\EventController::class);
+        Route::resource('/participant', \App\Http\Controllers\ParticipantController::class);
+
+        Route::middleware('admin')->group(function (){
+            Route::resource('/role', \App\Http\Controllers\RoleController::class);
+            Route::resource('/event/status', \App\Http\Controllers\StatusEventController::class);
+            Route::post('/event/status/approve/{event}', [\App\Http\Controllers\EventActionController::class, 'approve']);
+            Route::post('/event/status/pending/{event}', [\App\Http\Controllers\EventActionController::class, 'pending']);
+            Route::post('/event/status/rejected/{event}', [\App\Http\Controllers\EventActionController::class, 'rejected']);
+        });
+
+    });
 
 });

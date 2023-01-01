@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Participant extends Model
 {
     use HasFactory;
 
@@ -13,5 +13,9 @@ class Role extends Model
 
     public function user(){
         return $this->hasMany(User::class);
+    }
+
+    public function event(){
+        return $this->hasMany(Event::class);
     }
 }
